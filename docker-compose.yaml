@@ -1,0 +1,15 @@
+services:
+  bot:
+    container_name: bot
+    build: ./bot
+    restart: always
+    command: ["/app/docker/run.sh"]
+    env_file:
+      - .env-non-dev
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: "0.50"
+    volumes:
+      - ./bot/src:/app/src

@@ -1,6 +1,6 @@
 services:
-  bot:
-    container_name: bot
+  check_ege:
+    container_name: check_ege
     build: ./bot
     restart: always
     command: ["/app/docker/run.sh"]

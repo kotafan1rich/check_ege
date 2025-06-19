@@ -9,10 +9,9 @@ logger = logging.getLogger(__name__)
 
 
 async def sender():
-    last = {}
     while True:
         res = parcer()
-        if last != res and last:
+        if any("информатика" in j.lower() for j in res):
             for user_id in active_users:
                 await bot.send_message(
                     user_id,
@@ -20,7 +19,6 @@ async def sender():
                 )
         else:
             logger.info("No updates")
-        last = res
         await asyncio.sleep(60)
 
 
@@ -62,6 +60,7 @@ def parcer() -> bool:
         headers=headers,
         data=data,
     )
+    logger.info(f"Status: {response.status_code}")
     soup = BeautifulSoup(response.text, "lxml")
     data = soup.find_all(class_="exam-title row")
     result = {}
